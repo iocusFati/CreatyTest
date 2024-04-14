@@ -17,7 +17,7 @@ namespace Infrastructure
                 tickable.Tick();
         }
         
-        public void AddTickable(IUpdatable updatable)
+        public void AddUpdatable(IUpdatable updatable)
         {
             _updatables.Add(updatable);
         }

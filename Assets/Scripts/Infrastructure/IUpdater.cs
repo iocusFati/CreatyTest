@@ -2,6 +2,6 @@ namespace Infrastructure
 {
     public interface IUpdater
     {
-        public void AddTickable(IUpdatable updatable);
+        public void AddUpdatable(IUpdatable updatable);
     }
 }

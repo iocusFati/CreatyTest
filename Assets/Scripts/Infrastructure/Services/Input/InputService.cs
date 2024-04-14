@@ -11,7 +11,7 @@ namespace Infrastructure.Services.Input
 
             Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-            return movement;
+            return movement.normalized;
         }
     }
 }

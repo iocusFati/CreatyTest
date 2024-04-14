@@ -9,20 +9,37 @@ namespace Infrastructure.States
         private readonly CharacterController _characterController;
         private readonly IInputService _inputService;
         private readonly PlayerConfig _playerConfig;
+        private readonly Transform _playerModel;
+        
+        private Camera _camera;
 
         public PlayerMovement(CharacterController characterController,
             IInputService inputService,
             IUpdater updater,
-            PlayerConfig playerConfig)
+            PlayerConfig playerConfig, 
+            Transform playerModel)
         {
             _characterController = characterController;
             _inputService = inputService;
             _playerConfig = playerConfig;
-            
-            updater.AddTickable(this);
+            _playerModel = playerModel;
+
+            updater.AddUpdatable(this);
+        }
+        
+        public void SetCamera(Camera camera)
+        {
+            _camera = camera;
         }
 
-        public void Tick() => 
-            _characterController.Move(_inputService.GetMovement() * (_playerConfig.Speed * Time.deltaTime));
+        public void Tick()
+        {
+            Vector3 movementDirection = _inputService.GetMovement();
+            
+            if (_inputService.GetMovement() != Vector3.zero) 
+                _playerModel.forward = movementDirection;
+
+            _characterController.Move(movementDirection * (_playerConfig.Speed * Time.deltaTime));
+        }
     }
 }
