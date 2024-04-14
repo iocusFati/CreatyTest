@@ -47,10 +47,10 @@ namespace Infrastructure.States
 
         private void OnLoaded()
         {
-            _initialPoint = GameObject.FindWithTag(PlayerSpawnTag).transform.position;
+            _initialPoint = GameObject.FindWithTag(Tags.PlayerSpawn).transform.position;
             _playerFactory.CreatePlayer(_initialPoint);
             
-            _saveLoadService.InformReaders();
+            // _saveLoadService.InformReaders();
             _gameStateMachine.Enter<GameLoopState>();
         }
 

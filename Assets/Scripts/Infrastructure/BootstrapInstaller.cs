@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using Infrastructure.AssetProviderService;
+using Infrastructure.Services.Input;
 using Infrastructure.Services.PersistentProgress;
 using Infrastructure.Services.SaveLoad;
+using Infrastructure.Services.StaticDataService;
 using Infrastructure.States;
 using UnityEngine;
 using Zenject;
@@ -13,6 +15,9 @@ namespace Infrastructure
     {
         public override void InstallBindings()
         {
+            BindStaticDataService();    
+            BindUpdater();
+            BindInputService();
             BindSceneLoader();
             BindStatesFactory();
             BindCoroutineRunner();
@@ -21,8 +26,33 @@ namespace Infrastructure
             BindPersistentProgress();
             BindAssetsService();
 
-
             BindFactories();
+        }
+        
+        private void BindStaticDataService()
+        {
+            Container
+                .Bind<IStaticDataService>()
+                .To<StaticDataService>()
+                .AsSingle();
+        }
+
+        private void BindUpdater()
+        {
+            IUpdater updater = new GameObject("Updater").AddComponent<Updater>();
+            
+            Container
+                .Bind<IUpdater>()
+                .FromInstance(updater)
+                .AsSingle();
+        }
+
+        private void BindInputService()
+        {
+            Container
+                .Bind<IInputService>()
+                .To<InputService>()
+                .AsSingle();
         }
 
         private void BindAssetsService()

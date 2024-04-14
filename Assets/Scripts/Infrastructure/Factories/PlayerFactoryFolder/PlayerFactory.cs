@@ -1,20 +1,31 @@
+using Cinemachine;
 using Infrastructure.AssetProviderService;
 using UnityEngine;
+using Zenject;
 
 namespace Infrastructure.States
 {
     public class PlayerFactory : IPlayerFactory
     {
-        private readonly IAssets _assets;
+        private readonly IInstantiator _instantiator;
 
-        public PlayerFactory(IAssets assets)
+        public PlayerFactory(IInstantiator instantiator)
         {
-            _assets = assets;
+            _instantiator = instantiator;
         }
 
         public void CreatePlayer(Vector3 at)
         {
-            _assets.Instantiate<Player>(AssetPaths.Player, at);
+            Player player = _instantiator.InstantiatePrefabResourceForComponent<Player>(AssetPaths.Player, at,
+                Quaternion.identity, null);
+
+            GetActiveCinemachineCamera().Follow = player.transform;
+        }
+        
+        public ICinemachineCamera GetActiveCinemachineCamera()
+        {
+            CinemachineBrain activeBrain = CinemachineCore.Instance.GetActiveBrain(0);
+            return activeBrain.ActiveVirtualCamera;
         }
     }
 }

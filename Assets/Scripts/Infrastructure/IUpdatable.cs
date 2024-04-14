@@ -1,6 +1,6 @@
 namespace Infrastructure
 {
-    public interface ITickable
+    public interface IUpdatable
     {
         public void Tick();
     }

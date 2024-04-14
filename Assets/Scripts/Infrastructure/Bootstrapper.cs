@@ -7,7 +7,7 @@ namespace Infrastructure
 {
     public class Bootstrapper : MonoBehaviour
     {
-        private const string GameSceneName = "Game";
+        private const string GameSceneName = "GameScene";
         
         private IGameStateMachine _gameStateMachine;
         private StatesFactory _statesFactory;

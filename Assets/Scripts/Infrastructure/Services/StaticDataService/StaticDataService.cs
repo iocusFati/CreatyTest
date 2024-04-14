@@ -6,16 +6,19 @@ namespace Infrastructure.Services.StaticDataService
 {
     public class StaticDataService : IStaticDataService
     {
-        public PlayerStaticData PlayerData { get; set; }
+        public PlayerConfig PlayerConfig { get; set; }
+
+        public StaticDataService()
+        {
+            Initialize();
+        }
 
         public void Initialize()
         {
-            InitializePlayerData();
+            InitializePlayerConfig();
         }
 
-        private void InitializePlayerData()
-        {
-            PlayerData = Resources.Load<PlayerStaticData>(AssetPaths.PlayerData);
-        }
+        private void InitializePlayerConfig() => 
+            PlayerConfig = Resources.Load<PlayerConfig>(AssetPaths.PlayerConfig);
     }
 }

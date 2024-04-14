@@ -4,6 +4,6 @@ namespace Infrastructure.Services.StaticDataService
 {
     public interface IStaticDataService : IService
     {
-        PlayerStaticData PlayerData { get; set; }
+        PlayerConfig PlayerConfig { get; }
     }
 }
