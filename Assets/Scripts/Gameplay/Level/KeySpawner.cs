@@ -12,7 +12,7 @@ namespace Gameplay.Level
         
         private Transform _keyParent;
 
-        public ReactiveProperty<int> UncollectedKeysCount { get; set; }
+        public ReactiveProperty<int> UncollectedKeysCount { get; private set; }
 
         public KeySpawner(IGameFactory gameFactory)
         {
@@ -29,7 +29,15 @@ namespace Gameplay.Level
             foreach (var keySpawn in spawnKeysPoints)
             {
                 Key key = _gameFactory.CreateKey(keySpawn.position, _keyParent);
+                key.OnGetCollected += OnKeyCollected;
             }
+        }
+
+        private void OnKeyCollected(Key key)
+        {
+            UncollectedKeysCount.Value--;
+            
+            key.OnGetCollected -= OnKeyCollected;
         }
 
         private static Transform CreateKeyParent() => 

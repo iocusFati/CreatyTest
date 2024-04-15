@@ -46,7 +46,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &2871931150922599515
 MonoBehaviour:
@@ -61,6 +61,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _getCollectedParticle: {fileID: 3070662915308724906}
+  _keyRotateParticle: {fileID: 3906807852580650218}
+  _trigger: {fileID: 3906807850943808843}
 --- !u!1 &3906807850987656317
 GameObject:
   m_ObjectHideFlags: 0
@@ -24287,7 +24289,7 @@ GameObject:
   - component: {fileID: 3906807852580650218}
   - component: {fileID: 3906807852580650217}
   m_Layer: 0
-  m_Name: gear_root
+  m_Name: key_root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24302,8 +24304,8 @@ Transform:
   m_GameObject: {fileID: 3906807852580650216}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 1.031, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3906807852392384735}
   - {fileID: 3906807851912696983}

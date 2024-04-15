@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Infrastructure.States
+namespace Gameplay.Level
 {
     public class LevelLocation : MonoBehaviour
     {
