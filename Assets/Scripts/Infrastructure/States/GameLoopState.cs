@@ -1,13 +1,14 @@
 using Gameplay.Level;
+using Gameplay.Level.Location;
 using UniRx;
-using UnityEngine;
 
 namespace Infrastructure.States
 {
     public class GameLoopState : IState
     {
         private readonly IKeysHolder _keysHolder;
-        
+        private LevelLocation _location;
+
         public GameLoopState(IKeysHolder keysHolder)
         {
             _keysHolder = keysHolder;
@@ -22,7 +23,7 @@ namespace Infrastructure.States
 
         private void OpenDoor()
         {
-            Debug.Log("Door opened!");
+            _location.OpenDoor();
         }
 
         public void Exit()

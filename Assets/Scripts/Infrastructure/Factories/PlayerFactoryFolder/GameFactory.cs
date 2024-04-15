@@ -1,5 +1,6 @@
 using Cinemachine;
 using Gameplay.Level;
+using Gameplay.Level.Location;
 using Infrastructure.AssetProviderService;
 using UnityEngine;
 using Zenject;
@@ -26,7 +27,7 @@ namespace Infrastructure.States
         }
 
         public LevelLocation CreateLevelLocation() => 
-            _assets.Instantiate<LevelLocation>(AssetPaths.Location);
+            _instantiator.InstantiatePrefabResourceForComponent<LevelLocation>(AssetPaths.Location);
 
         public Key CreateKey(Vector3 position, Transform keyParent) => 
             _assets.Instantiate<Key>(AssetPaths.Key, position, Quaternion.identity, keyParent);
