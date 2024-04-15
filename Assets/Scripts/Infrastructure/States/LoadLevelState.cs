@@ -1,61 +1,42 @@
+using Gameplay.Level;
 using Infrastructure.Services.SaveLoad;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Zenject;
 
 namespace Infrastructure.States
 {
-    public class LoadLevelState : IPayloadedState<string>
+    public class LoadLevelState : IState
     {
-        private const string PlayerSpawnTag = "PlayerSpawn";
-        
         private readonly ISaveLoadService _saveLoadService;
         private readonly IGameStateMachine _gameStateMachine;
-        private readonly IPlayerFactory _playerFactory;
-        private readonly SceneLoader _sceneLoader;
+        private readonly IGameFactory _gameFactory;
 
         private Vector3 _initialPoint;
+        private KeySpawner _keySpawner;
 
         public LoadLevelState(IGameStateMachine gameStateMachine,
             ISaveLoadService saveLoadService,
-            IPlayerFactory playerFactory, 
-            SceneLoader sceneLoader)
+            IGameFactory gameFactory, 
+            KeySpawner keySpawner)
         {
             _gameStateMachine = gameStateMachine;
             _saveLoadService = saveLoadService;
-            _playerFactory = playerFactory;
-            _sceneLoader = sceneLoader;
-            
+            _gameFactory = gameFactory;
+            _keySpawner = keySpawner;
         }
 
-        public void Enter(string sceneName)
+        public void Enter()
         {
-            if (sceneName != SceneManager.GetActiveScene().name)
-            {
-                _sceneLoader.Load(sceneName, OnLoaded);
-            }
-            else
-            {
-                Reload();
-            }
+            LevelLocation location = _gameFactory.CreateLevelLocation();
+            _keySpawner.SpawnKeys(location.KeySpawnPositions);
+            
+            _gameFactory.CreatePlayer(location.PlayerSpawnPoint.position);
+            
+            _gameStateMachine.Enter<GameLoopState>();
         }
 
         public void Exit()
         {
             
-        }
-
-        private void OnLoaded()
-        {
-            _initialPoint = GameObject.FindWithTag(Tags.PlayerSpawn).transform.position;
-            _playerFactory.CreatePlayer(_initialPoint);
-            
-            // _saveLoadService.InformReaders();
-            _gameStateMachine.Enter<GameLoopState>();
-        }
-
-        private void Reload()
-        {
         }
     }
 }

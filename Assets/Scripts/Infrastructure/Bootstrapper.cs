@@ -8,25 +8,18 @@ namespace Infrastructure
     public class Bootstrapper : MonoBehaviour
     {
         private const string GameSceneName = "GameScene";
-        
-        private IGameStateMachine _gameStateMachine;
-        private StatesFactory _statesFactory;
+
+        private SceneLoader _sceneLoader;
 
         [Inject]
-        public void Construct(IGameStateMachine gameStateMachine, StatesFactory statesFactory)
+        public void Construct(SceneLoader sceneLoader)
         {
-            _gameStateMachine = gameStateMachine;
-            _statesFactory = statesFactory;
+            _sceneLoader = sceneLoader;
         }
 
         private void Awake()
-        {
-            _gameStateMachine.RegisterState(_statesFactory.Create<LoadLevelState>());
-            _gameStateMachine.RegisterState(_statesFactory.Create<GameLoopState>());
-            _gameStateMachine.RegisterState(_statesFactory.Create<GameLostState>());
-            _gameStateMachine.RegisterState(_statesFactory.Create<LoadProgressState>());
-            
-            _gameStateMachine.Enter<LoadLevelState, string>(GameSceneName);
+        { 
+            _sceneLoader.Load(GameSceneName);
         }
     }
 }

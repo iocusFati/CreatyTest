@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Services.Input;
+using Infrastructure.Update;
 using UnityEngine;
 
 namespace Infrastructure.States

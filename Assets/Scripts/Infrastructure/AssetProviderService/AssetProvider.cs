@@ -1,3 +1,4 @@
+using Gameplay.Level;
 using UnityEngine;
 
 namespace Infrastructure.AssetProviderService
@@ -21,7 +22,13 @@ namespace Infrastructure.AssetProviderService
             TCreatable prefab = Load<TCreatable>(path);
             return Object.Instantiate(prefab);
         }
-        
+
+        public TCreatable Instantiate<TCreatable>(string path, Vector3 position, Quaternion rotation, Transform parent) where TCreatable : Object
+        {
+            TCreatable prefab = Load<TCreatable>(path);
+            return Object.Instantiate(prefab, position, rotation, parent);
+        }
+
         private TCreatable Load<TCreatable>(string path) where TCreatable : Object => 
             Resources.Load<TCreatable>(path);
     }

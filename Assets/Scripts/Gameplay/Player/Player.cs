@@ -1,6 +1,7 @@
 ﻿using System;
 using Infrastructure.Services.Input;
 using Infrastructure.Services.StaticDataService;
+using Infrastructure.Update;
 using UnityEngine;
 using Zenject;
 

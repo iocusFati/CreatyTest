@@ -1,7 +1,6 @@
 ﻿using Infrastructure.Data;
 using Infrastructure.Services.PersistentProgress;
 using Infrastructure.Services.SaveLoad;
-using Zenject;
 
 namespace Infrastructure.States
 {
@@ -28,8 +27,6 @@ namespace Infrastructure.States
         public void Enter()
         {
             LoadProgressOrInitNew();
-            
-            _gameStateMachine.Enter<LoadLevelState, string>(MainSceneName);
         }
 
         public void Exit()

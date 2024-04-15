@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Services.Input;
 using Infrastructure.StaticData.PlayerData;
+using Infrastructure.Update;
 using UnityEngine;
 
 namespace Infrastructure.States
