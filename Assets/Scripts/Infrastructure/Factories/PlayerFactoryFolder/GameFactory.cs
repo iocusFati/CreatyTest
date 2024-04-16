@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using Gameplay.Level;
 using Gameplay.Level.Location;
@@ -12,6 +13,8 @@ namespace Infrastructure.States
         private readonly IInstantiator _instantiator;
         private readonly IAssets _assets;
 
+        public event Action<Player> OnPlayerCreated;
+
         public GameFactory(IInstantiator instantiator, IAssets assets)
         {
             _instantiator = instantiator;
@@ -24,6 +27,8 @@ namespace Infrastructure.States
                 Quaternion.identity, null);
 
             GetActiveCinemachineCamera().Follow = player.transform;
+            
+            OnPlayerCreated?.Invoke(player);
         }
 
         public LevelLocation CreateLevelLocation() => 
@@ -35,7 +40,8 @@ namespace Infrastructure.States
         private ICinemachineCamera GetActiveCinemachineCamera()
         {
             CinemachineBrain activeBrain = CinemachineCore.Instance.GetActiveBrain(0);
-            return activeBrain.ActiveVirtualCamera;
-        }
+            CinemachineStateDrivenCamera stateDrivenCamera = activeBrain.ActiveVirtualCamera as CinemachineStateDrivenCamera;
+    
+            return stateDrivenCamera != null ? stateDrivenCamera.LiveChild : null;        }
     }
 }

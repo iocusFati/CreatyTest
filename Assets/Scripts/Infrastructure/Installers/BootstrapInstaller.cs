@@ -1,3 +1,4 @@
+using Base.UI.Factory;
 using Infrastructure.AssetProviderService;
 using Infrastructure.Services.Input;
 using Infrastructure.Services.PersistentProgress;
@@ -18,15 +19,22 @@ namespace Infrastructure
             BindUpdater();
             BindInputService();
             BindSceneLoader();
-            // BindStatesFactory();
             BindCoroutineRunner();
             BindSaveLoadService();
             BindPersistentProgress();
             BindAssetsService();
-
             BindFactories();
+            BindUIMediator();
         }
-        
+
+        private void BindUIMediator()
+        {
+            Container
+                .Bind<IUIMediator>()
+                .To<UIMediator>()
+                .AsSingle();
+        }
+
         private void BindStaticDataService()
         {
             Container
@@ -80,12 +88,21 @@ namespace Infrastructure
         private void BindFactories()
         {
             BindPlayerFactory();
-
+            BindUIFactory();
+            
             void BindPlayerFactory()
             {
                 Container
                     .Bind<IGameFactory>()
                     .To<GameFactory>()
+                    .AsSingle();
+            }
+
+            void BindUIFactory()
+            {
+                Container
+                    .Bind<IUIFactory>()
+                    .To<UIFactory>()
                     .AsSingle();
             }
         }
@@ -94,13 +111,6 @@ namespace Infrastructure
         {
             Container
                 .Bind<SceneLoader>()
-                .AsSingle();
-        }
-
-        private void BindStatesFactory()
-        {
-            Container
-                .BindInterfacesAndSelfTo<StatesFactory>()
                 .AsSingle();
         }
 

@@ -13,5 +13,8 @@ namespace Infrastructure.Services.Input
 
             return movement.normalized;
         }
+
+        public bool PressEnter() => 
+            UnityEngine.Input.GetKeyDown(KeyCode.Return);
     }
 }

@@ -10,6 +10,8 @@ namespace Infrastructure.States
         private readonly IInputService _inputService;
         
         private static readonly int IsRunning = Animator.StringToHash("IsRunning");
+        
+        private bool _inputEnabled;
 
         public PlayerAnimator(Animator animator, IUpdater updater, IInputService inputService)
         {
@@ -19,9 +21,21 @@ namespace Infrastructure.States
             updater.AddUpdatable(this);
         }
 
-        public void Tick()
+        public void Update()
         {
+            if (!_inputEnabled)
+                return;
+            
             _animator.SetBool(IsRunning, _inputService.GetMovement().magnitude > 0);
         }
+
+        public void DisableInput()
+        {
+            _inputEnabled = false;
+            _animator.SetBool(IsRunning, false);
+        }
+
+        public void EnableInput() => 
+            _inputEnabled = true;
     }
 }

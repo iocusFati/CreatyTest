@@ -1,11 +1,11 @@
 ﻿using Base.UI.Entities;
 using Infrastructure.Services;
+using Infrastructure.States;
 
 namespace Base.UI.Factory
 {
     public interface IUIFactory : IService
     {
-        void CreateGameUIRoot();
-        HUD CreateHUD();
+        DialogueWindow CreateDialogueWindow();
     }
 }

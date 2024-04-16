@@ -11,8 +11,8 @@ namespace Infrastructure.States
         private readonly IInputService _inputService;
         private readonly PlayerConfig _playerConfig;
         private readonly Transform _playerModel;
-        
-        private Camera _camera;
+
+        private bool _inputEnabled;
 
         public PlayerMovement(CharacterController characterController,
             IInputService inputService,
@@ -27,20 +27,26 @@ namespace Infrastructure.States
 
             updater.AddUpdatable(this);
         }
-        
-        public void SetCamera(Camera camera)
-        {
-            _camera = camera;
-        }
 
-        public void Tick()
+        public void Update()
         {
-            Vector3 movementDirection = _inputService.GetMovement();
+            Vector3 movementDirection = Vector3.zero;
             
-            if (_inputService.GetMovement() != Vector3.zero) 
-                _playerModel.forward = movementDirection;
+            if (_inputEnabled)
+            {
+                movementDirection = _inputService.GetMovement();
+
+                if (_inputService.GetMovement() != Vector3.zero) 
+                    _playerModel.forward = movementDirection;
+            }
 
             _characterController.Move(movementDirection * (_playerConfig.Speed * Time.deltaTime));
         }
+
+        public void DisableInput() => 
+            _inputEnabled = false;
+
+        public void EnableInput() => 
+            _inputEnabled = true;
     }
 }

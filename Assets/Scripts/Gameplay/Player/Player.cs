@@ -23,10 +23,16 @@ namespace Infrastructure.States
             _playerAnimator = new PlayerAnimator(_animator, updater, inputService);
         }
 
-        private void Awake()
+        public void DisableInput()
         {
-            Camera mainCamera = Camera.main;
-            _playerMovement.SetCamera(mainCamera);
+            _playerMovement.DisableInput();
+            _playerAnimator.DisableInput();
+        }
+
+        public void EnableInput()
+        {
+            _playerMovement.EnableInput();
+            _playerAnimator.EnableInput();
         }
     }
 }

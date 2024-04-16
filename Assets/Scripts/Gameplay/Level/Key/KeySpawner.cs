@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Infrastructure.States;
 using UniRx;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Gameplay.Level
         private readonly IGameFactory _gameFactory;
         
         private Transform _keyParent;
+        public event Action OnKeysSpawned;
 
         public ReactiveProperty<int> UncollectedKeysCount { get; private set; }
 
@@ -31,6 +33,8 @@ namespace Gameplay.Level
                 Key key = _gameFactory.CreateKey(keySpawn.position, _keyParent);
                 key.OnGetCollected += OnKeyCollected;
             }
+            
+            OnKeysSpawned?.Invoke();
         }
 
         private void OnKeyCollected(Key key)

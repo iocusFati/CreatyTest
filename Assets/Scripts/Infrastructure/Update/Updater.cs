@@ -13,7 +13,7 @@ namespace Infrastructure.Update
         public void Update()
         {
             foreach (var tickable in _updatables) 
-                tickable.Tick();
+                tickable.Update();
         }
         
         public void AddUpdatable(IUpdatable updatable)

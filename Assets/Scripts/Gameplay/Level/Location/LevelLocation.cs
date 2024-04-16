@@ -12,12 +12,7 @@ namespace Gameplay.Level.Location
         public List<Transform> KeySpawnPositions => _keySpawnPositions;
 
         public Transform PlayerSpawnPoint => _playerSpawnPoint;
-
-        private void Awake()
-        {
-            OpenDoor();
-        }
-
+        
         public void OpenDoor()
         {
             _door.Open();

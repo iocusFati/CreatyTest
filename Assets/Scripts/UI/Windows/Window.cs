@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Base.UI.Entities.Windows
 {
-    public class Window : MonoBehaviour, IUIEntity
+    public class Window : MonoBehaviour
     {
         public virtual void Show() => 
             gameObject.SetActive(true);

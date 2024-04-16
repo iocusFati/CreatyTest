@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745a12698a154b98a19f37b073b5c026, type: 3}
   m_Name: LocationConfig
   m_EditorClassIdentifier: 
-  _doorOpenAngle: 0
-  _doorOpenSpeed: 0
+  _doorOpenAngle: 120
+  _doorOpenSpeed: 18

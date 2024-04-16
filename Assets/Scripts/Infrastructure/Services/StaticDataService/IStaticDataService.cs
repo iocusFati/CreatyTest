@@ -7,5 +7,6 @@ namespace Infrastructure.Services.StaticDataService
     {
         PlayerConfig PlayerConfig { get; }
         LocationConfig LocationConfig { get; }
+        LevelPlotConfig LevelPlotConfig { get; }
     }
 }
