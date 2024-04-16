@@ -4,27 +4,26 @@ using Gameplay.Level;
 using Gameplay.Level.Location;
 using Infrastructure.AssetProviderService;
 using UnityEngine;
-using Zenject;
 
 namespace Infrastructure.States
 {
     public class GameFactory : IGameFactory
     {
-        private readonly IInstantiator _instantiator;
         private readonly IAssets _assets;
 
         public event Action<Player> OnPlayerCreated;
 
-        public GameFactory(IInstantiator instantiator, IAssets assets)
+        public GameFactory(IAssets assets)
         {
-            _instantiator = instantiator;
             _assets = assets;
         }
 
         public void CreatePlayer(Vector3 at)
         {
-            Player player = _instantiator.InstantiatePrefabResourceForComponent<Player>(AssetPaths.Player, at,
-                Quaternion.identity, null);
+            Player player = _assets.Instantiate<Player>(AssetPaths.Player, at);
+            PlusOneText plusOneText = _assets.Instantiate<PlusOneText>(AssetPaths.PlusOneText);
+            
+            player.PlusOneText = plusOneText;
 
             GetActiveCinemachineCamera().Follow = player.transform;
             
@@ -32,7 +31,7 @@ namespace Infrastructure.States
         }
 
         public LevelLocation CreateLevelLocation() => 
-            _instantiator.InstantiatePrefabResourceForComponent<LevelLocation>(AssetPaths.Location);
+            _assets.Instantiate<LevelLocation>(AssetPaths.Location);
 
         public Key CreateKey(Vector3 position, Transform keyParent) => 
             _assets.Instantiate<Key>(AssetPaths.Key, position, Quaternion.identity, keyParent);

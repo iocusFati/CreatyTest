@@ -1,35 +1,54 @@
 using Gameplay.Level;
 using UnityEngine;
+using Zenject;
 
 namespace Infrastructure.AssetProviderService
 {
     public class AssetProvider : IAssets
     {
-        public TCreatable Instantiate<TCreatable>(string path, Transform parent) where TCreatable : Object
+        private readonly IInstantiator _instantiator;
+        private GameObject _sceneRoot;
+
+        public AssetProvider(IInstantiator instantiator)
         {
-            TCreatable prefab = Load<TCreatable>(path);
-            return Object.Instantiate(prefab, parent);
+            _instantiator = instantiator;
         }
 
-        public TCreatable Instantiate<TCreatable>(string path, Vector3 at) where TCreatable : Object
+        public TCreatable Instantiate<TCreatable>(string path, Transform parent) where TCreatable : Component
         {
-            TCreatable prefab = Load<TCreatable>(path);
-            return Object.Instantiate(prefab, at, Quaternion.identity);
+            TCreatable instance = _instantiator.InstantiatePrefabResourceForComponent<TCreatable>(path, parent);
+            return instance;
         }
 
-        public TCreatable Instantiate<TCreatable>(string path) where TCreatable : Object
+        public TCreatable Instantiate<TCreatable>(string path, Vector3 at) where TCreatable : Component
         {
-            TCreatable prefab = Load<TCreatable>(path);
-            return Object.Instantiate(prefab);
+            TCreatable instance = _instantiator.InstantiatePrefabResourceForComponent<TCreatable>(path);
+            instance.transform.position = at;
+            SetParentToScene(instance.transform);
+            return instance;
         }
 
-        public TCreatable Instantiate<TCreatable>(string path, Vector3 position, Quaternion rotation, Transform parent) where TCreatable : Object
+        public TCreatable Instantiate<TCreatable>(string path) where TCreatable : Component
         {
-            TCreatable prefab = Load<TCreatable>(path);
-            return Object.Instantiate(prefab, position, rotation, parent);
+            TCreatable instance = _instantiator.InstantiatePrefabResourceForComponent<TCreatable>(path);
+            SetParentToScene(instance.transform);
+            return instance;
         }
 
-        private TCreatable Load<TCreatable>(string path) where TCreatable : Object => 
-            Resources.Load<TCreatable>(path);
+        public TCreatable Instantiate<TCreatable>(string path, Vector3 position, Quaternion rotation, Transform parent) where TCreatable : Component
+        {
+            TCreatable instance = _instantiator.InstantiatePrefabResourceForComponent<TCreatable>(path, position, rotation, parent);
+            
+            return instance;
+        }
+
+        private void SetParentToScene(Transform transform)
+        {
+            if (_sceneRoot == null)
+                _sceneRoot = new GameObject("SceneRoot");
+            
+            if (_sceneRoot != null) 
+                transform.SetParent(_sceneRoot.transform);
+        }
     }
 }

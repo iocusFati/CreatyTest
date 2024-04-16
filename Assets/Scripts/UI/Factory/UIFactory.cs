@@ -8,36 +8,37 @@ namespace Base.UI.Factory
     public class UIFactory : IUIFactory
     {
         private readonly IAssets _assets;
-        private readonly IInstantiator _instantiator;
 
+        private const int HudCanvasOrder = 1;
+        
         private Canvas _gameRoot;
 
-        public UIFactory(IAssets assets, IInstantiator instantiator)
+
+        public UIFactory(IAssets assets)
         {
             _assets = assets;
-            _instantiator = instantiator;
         }
 
         public void CreateGameUIRoot() => 
             _gameRoot = CreateUIRoot("GameRoot");
 
-        // public HUD CreateHUD()
-        // {
-        //     Canvas hudCanvas = CreateUIRoot("HUD", HudCanvasOrder);
-        //
-        //     HUD hud = CreateUIEntity<HUD>(AssetPaths.HUD, hudCanvas);
-        //
-        //     return hud;
-        // }
-
         public DialogueWindow CreateDialogueWindow() => 
             CreateUIEntity<DialogueWindow>(AssetPaths.DialogueWindow);
+
+        public HUD CreateHUD()
+        {
+            Canvas hudCanvas = CreateUIRoot("HUD", HudCanvasOrder);
+
+            HUD hud = CreateUIEntity<HUD>(AssetPaths.HUD, hudCanvas);
+
+            return hud;
+        }
 
         private TEntity CreateUIEntity<TEntity>(string path, Canvas parent = null) where TEntity : Component
         {
             parent = SetParentIfNull();
 
-            TEntity entity = _instantiator.InstantiatePrefabResourceForComponent<TEntity>(path, parent.transform);
+            TEntity entity = _assets.Instantiate<TEntity>(path, parent.transform);
 
             return entity;
 

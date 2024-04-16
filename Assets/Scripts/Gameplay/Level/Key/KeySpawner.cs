@@ -10,15 +10,17 @@ namespace Gameplay.Level
     public class KeySpawner : IInitializable, IKeysHolder
     {
         private readonly IGameFactory _gameFactory;
-        
+        private readonly IUIMediator _uiMediator;
+
         private Transform _keyParent;
         public event Action OnKeysSpawned;
 
         public ReactiveProperty<int> UncollectedKeysCount { get; private set; }
 
-        public KeySpawner(IGameFactory gameFactory)
+        public KeySpawner(IGameFactory gameFactory, IUIMediator uiMediator)
         {
             _gameFactory = gameFactory;
+            _uiMediator = uiMediator;
         }
 
         public void Initialize() => 
@@ -27,6 +29,7 @@ namespace Gameplay.Level
         public void SpawnKeys(List<Transform> spawnKeysPoints)
         {
             UncollectedKeysCount = new ReactiveProperty<int>(spawnKeysPoints.Count);
+            _uiMediator.SetTotalKeysCount(spawnKeysPoints.Count);
             
             foreach (var keySpawn in spawnKeysPoints)
             {
@@ -40,6 +43,8 @@ namespace Gameplay.Level
         private void OnKeyCollected(Key key)
         {
             UncollectedKeysCount.Value--;
+            
+            _uiMediator.ShowKeysCount(UncollectedKeysCount.Value);
             
             key.OnGetCollected -= OnKeyCollected;
         }

@@ -7,5 +7,6 @@ namespace Base.UI.Factory
     public interface IUIFactory : IService
     {
         DialogueWindow CreateDialogueWindow();
+        HUD CreateHUD();
     }
 }

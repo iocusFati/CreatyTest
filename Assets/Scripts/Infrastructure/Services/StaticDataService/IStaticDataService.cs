@@ -1,5 +1,6 @@
 ﻿using Infrastructure.StaticData.Level;
 using Infrastructure.StaticData.PlayerData;
+using Infrastructure.StaticData.UI;
 
 namespace Infrastructure.Services.StaticDataService
 {
@@ -8,5 +9,6 @@ namespace Infrastructure.Services.StaticDataService
         PlayerConfig PlayerConfig { get; }
         LocationConfig LocationConfig { get; }
         LevelPlotConfig LevelPlotConfig { get; }
+        UIConfig UIConfig { get; }
     }
 }
