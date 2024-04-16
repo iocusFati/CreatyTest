@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerSpawn
   - Key
+  - DoorExit
   layers:
   - Default
   - TransparentFX

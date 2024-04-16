@@ -8,18 +8,18 @@ namespace Infrastructure.States
     {
         private const string MainSceneName = "Game";
         
-        private readonly IGameStateMachine _gameStateMachine;
+        private readonly IStateMachine _stateMachine;
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadService;
 
         public LoadProgressState() { }
         
         public LoadProgressState(
-            IGameStateMachine gameStateMachine, 
+            IStateMachine stateMachine, 
             IPersistentProgressService progressService,
             ISaveLoadService saveLoadService)
         {
-            _gameStateMachine = gameStateMachine;
+            _stateMachine = stateMachine;
             _progressService = progressService;
             _saveLoadService = saveLoadService;
         }

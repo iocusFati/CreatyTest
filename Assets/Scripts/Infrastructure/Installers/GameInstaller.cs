@@ -1,4 +1,5 @@
-﻿using Gameplay.Level;
+﻿using Base.UI.Factory;
+using Gameplay.Level;
 using Gameplay.Level.Location;
 using Gameplay.Level.Plot;
 using Infrastructure.States;
@@ -26,7 +27,7 @@ namespace Infrastructure
 
             BindGameStarter();
         }
-
+        
         private void BindTimer()
         {
             Container
@@ -81,9 +82,9 @@ namespace Infrastructure
 
         private void BindStateMachine()
         {
-            Container
-                .Bind<IGameStateMachine>()
-                .To<GameStateMachine>()
+            Container.ParentContainers[0]
+                .Bind<IStateMachine>()
+                .To<StateMachine>()
                 .AsSingle();
         }
     }

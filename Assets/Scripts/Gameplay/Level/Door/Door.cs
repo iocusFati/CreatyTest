@@ -9,10 +9,11 @@ namespace Gameplay.Level
 {
     public class Door : MonoBehaviour
     {
+        [SerializeField] private Collider _doorExitTrigger;
         [SerializeField] private float _targetJointPosition;
         [SerializeField] private float _doorOpenSpeed;
         [SerializeField] private List<DoorPartData> _doorParts;
-        
+
         private LocationConfig _locationConfig;
 
         [Inject]
@@ -23,9 +24,28 @@ namespace Gameplay.Level
 
         public void Open()
         {
+            ActivateDoorExitTrigger(true);
+            
             foreach (var part in _doorParts) 
                 StartCoroutine(OpenDoorPart(part));
         }
+
+        public void Close()
+        {
+            ActivateDoorExitTrigger(false);
+            
+            foreach (var part in _doorParts)
+            {
+                HingeJoint doorPartJoint = part.Joint;
+                JointSpring spring = doorPartJoint.spring;
+                
+                spring.targetPosition = 0;
+                doorPartJoint.spring = spring;
+            }
+        }
+
+        private void ActivateDoorExitTrigger(bool activate) => 
+            _doorExitTrigger.enabled = activate;
 
         private IEnumerator OpenDoorPart(DoorPartData doorPart)
         {
@@ -43,6 +63,5 @@ namespace Gameplay.Level
                 yield return null;
             }
         }
-        
     }
 }

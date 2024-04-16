@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Level.Location
@@ -16,6 +17,11 @@ namespace Gameplay.Level.Location
         public void OpenDoor()
         {
             _door.Open();
+        }
+
+        public void CloseDoor()
+        {
+            _door.Close();
         }
     }
 }

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace Infrastructure.States
 {
-    public class GameStateMachine : IGameStateMachine
+    public class StateMachine : IStateMachine
     {
         private readonly Dictionary<Type, IExitState> _states;
         private IExitState _currentState;
         
-        public GameStateMachine()
+        public StateMachine()
         {
             _states = new Dictionary<Type, IExitState>();
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Infrastructure;
 using Infrastructure.Services.StaticDataService;
 using Infrastructure.States;
@@ -14,6 +15,10 @@ namespace Gameplay.Level.Plot
         private readonly IUIMediator _uiMediator;
         
         private bool _isPaused;
+        
+        private Coroutine _timerCoroutine;
+
+        public event Action OnTimerEnd;
 
         public Timer(ICoroutineRunner coroutineRunner, IUIMediator uiMediator, IStaticDataService staticData)
         {
@@ -24,7 +29,10 @@ namespace Gameplay.Level.Plot
 
         public void ResetTimer()
         {
-            _coroutineRunner.StartCoroutine(RunTimer());
+            if (_timerCoroutine != null)
+                _coroutineRunner.StopCoroutine(_timerCoroutine);
+            
+            _timerCoroutine = _coroutineRunner.StartCoroutine(RunTimer());
         }
 
         private IEnumerator RunTimer()
@@ -45,6 +53,8 @@ namespace Gameplay.Level.Plot
                 time--;
                 _uiMediator.UpdateTimer(time);
             }
+            
+            OnTimerEnd?.Invoke();
         }
         public void Pause(bool pause) => 
             _isPaused = pause;

@@ -21,6 +21,12 @@ namespace Gameplay.Level
             }
         }
 
+        public void Respawn()
+        {
+            _keyRotateParticle.gameObject.SetActive(true);
+            _trigger.enabled = true;
+        }
+
         private void GetCollected()
         {
             OnGetCollected?.Invoke(this);

@@ -8,20 +8,20 @@ namespace Infrastructure.States
     public class LoadLevelState : IState
     {
         private readonly ISaveLoadService _saveLoadService;
-        private readonly IGameStateMachine _gameStateMachine;
+        private readonly IStateMachine _stateMachine;
         private readonly IGameFactory _gameFactory;
         private readonly LevelLocation _location;
         private readonly KeySpawner _keySpawner;
 
         private Vector3 _initialPoint;
 
-        public LoadLevelState(IGameStateMachine gameStateMachine,
+        public LoadLevelState(IStateMachine stateMachine,
             ISaveLoadService saveLoadService,
             IGameFactory gameFactory, 
             KeySpawner keySpawner, 
             LevelLocation location)
         {
-            _gameStateMachine = gameStateMachine;
+            _stateMachine = stateMachine;
             _saveLoadService = saveLoadService;
             _gameFactory = gameFactory;
             _keySpawner = keySpawner;
@@ -34,7 +34,7 @@ namespace Infrastructure.States
             
             _gameFactory.CreatePlayer(_location.PlayerSpawnPoint.position);
             
-            _gameStateMachine.Enter<GameLoopState>();
+            _stateMachine.Enter<GameLoopState>();
         }
 
         public void Exit()

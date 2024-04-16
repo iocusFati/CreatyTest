@@ -1,5 +1,4 @@
-﻿using Base.UI.Entities;
-using Infrastructure.Services;
+﻿using Infrastructure.Services;
 using Infrastructure.States;
 
 namespace Base.UI.Factory
@@ -8,5 +7,8 @@ namespace Base.UI.Factory
     {
         DialogueWindow CreateDialogueWindow();
         HUD CreateHUD();
+        GameWonWindow CreateGameWonWindow();
+        GameLostWindow CreateGameLostWindow();
+        ScreenFader CreateScreenFader();
     }
 }
