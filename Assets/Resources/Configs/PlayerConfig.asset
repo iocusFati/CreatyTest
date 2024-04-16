@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   _speed: 8
+  _plusOneTextRaiseBy: 2
+  _plusOneTextRaiseDuration: 1.1
+  _plusOneTextSpawnHeight: 3.3

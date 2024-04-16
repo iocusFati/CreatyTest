@@ -15,5 +15,6 @@ namespace Infrastructure.AssetProviderService
         public const string DialogueWindow = "Prefabs/UI/DialogueWindow";
         public const string HUD = "Prefabs/UI/HUD";
         public const string PlusOneText = "Prefabs/UI/PlusOne";
+        public const string GameConfig = "Configs/GameConfig";
     }
 }

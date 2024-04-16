@@ -1269,6 +1269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 1528084415}
+  _stateDrivenCamera: {fileID: 1528084416}
 --- !u!1 &1540960249
 GameObject:
   m_ObjectHideFlags: 3

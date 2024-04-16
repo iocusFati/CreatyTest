@@ -1,5 +1,6 @@
 ﻿using Gameplay.Level;
 using Gameplay.Level.Location;
+using Gameplay.Level.Plot;
 using Infrastructure.States;
 using UnityEngine;
 using Zenject;
@@ -20,9 +21,18 @@ namespace Infrastructure
 
             BindKeySpawner();
             BindCameraStates();
+            BindTimer();
             BindLevelPlot();
-            
+
             BindGameStarter();
+        }
+
+        private void BindTimer()
+        {
+            Container
+                .Bind<Timer>()
+                .FromNew()
+                .AsSingle();
         }
 
         private void BindLocation()

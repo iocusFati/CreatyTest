@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Cinemachine;
 using Cysharp.Threading.Tasks;
 using Infrastructure.StaticData.Level;
@@ -10,18 +9,12 @@ namespace Infrastructure.States
     public class CameraStates : MonoBehaviour
     {
         [SerializeField] private Animator _animator;
-        
+        [SerializeField] private CinemachineStateDrivenCamera _stateDrivenCamera;
+
         private readonly int _gradualDoorId = Animator.StringToHash("GradualDoor");
         private readonly int _cutDoorId = Animator.StringToHash("CutDoor");
         private int _currentStateId;
-        
-        private CinemachineBrain _cinemachineBrain;
 
-        private void Awake()
-        {
-            _cinemachineBrain = Camera.main.GetComponent<CinemachineBrain>();
-        }
-        
         public async UniTask SwitchCameraState(AnimationCameraState cameraState)
         {
             ExitCurrentState();
@@ -40,11 +33,13 @@ namespace Infrastructure.States
                     throw new ArgumentOutOfRangeException(nameof(cameraState), cameraState, null);
             }
             
+            await UniTask.DelayFrame(20);
+            Debug.Log(_stateDrivenCamera.IsBlending);
             await WaitUntilCamerasFinishedBlending();
         }
 
         private UniTask WaitUntilCamerasFinishedBlending() => 
-            UniTask.WaitUntil(() => !_cinemachineBrain.IsBlending);
+            UniTask.WaitUntil(() => !_stateDrivenCamera.IsBlending);
 
         private void ExitCurrentState()
         {

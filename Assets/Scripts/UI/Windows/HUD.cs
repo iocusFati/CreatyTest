@@ -13,8 +13,12 @@ namespace Base.UI.Factory
     {
         [SerializeField] private TextMeshProUGUI _keyCountText;
         
+        [Header("Timer")]
+        [SerializeField] private TextMeshProUGUI _timerText;
+        [SerializeField] private GameObject _timerContainer;
+
         private UIConfig _uiConfig;
-        
+
         private int _currentKeysCount;
         private int _totalKeysCount;
 
@@ -37,6 +41,17 @@ namespace Base.UI.Factory
             _totalKeysCount = count;
             SetKeysCountText();
         }
+
+        public void UpdateTimer(int time)
+        {
+            int minutes = time / 60;
+            int seconds = time % 60;
+            
+            _timerText.text = $"{minutes:D2}:{seconds:D2}";
+        }
+
+        public void ShowTimer(bool show) => 
+            _timerContainer.gameObject.SetActive(show);
 
         private void SetKeysCountText(bool doPunch = false)
         {

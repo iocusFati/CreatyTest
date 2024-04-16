@@ -18,6 +18,7 @@ namespace Infrastructure.States
         {
             _dialogueWindow = _uiFactory.CreateDialogueWindow();
             _hud = _uiFactory.CreateHUD();
+            HideTimer();
             
             _dialogueWindow.Hide();
         }
@@ -27,6 +28,13 @@ namespace Infrastructure.States
         public void ShowKeysCount(int count) => _hud.ShowKeysCount(count);
         
         public void SetTotalKeysCount(int count) => _hud.SetTotalKeysCount(count);
+        
+        public void UpdateTimer(int time) => _hud.UpdateTimer(time);
+
+        public void ShowTimer() => _hud.ShowTimer(true);
+        public void HideTimer() => _hud.ShowTimer(false);
+        public void HideHUD() => _hud.Hide();
+        public void ShowHUD() => _hud.Show();
 
         public void ShowDialogueWindow() => _dialogueWindow.Show();
 

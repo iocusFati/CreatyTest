@@ -1,4 +1,5 @@
 ﻿using Infrastructure.AssetProviderService;
+using Infrastructure.StaticData.Game;
 using Infrastructure.StaticData.Level;
 using Infrastructure.StaticData.PlayerData;
 using Infrastructure.StaticData.UI;
@@ -8,10 +9,11 @@ namespace Infrastructure.Services.StaticDataService
 {
     public class StaticDataService : IStaticDataService
     {
-        public PlayerConfig PlayerConfig { get; set; }
-        public LocationConfig LocationConfig { get; set; }
-        public LevelPlotConfig LevelPlotConfig { get; set; }
-        public UIConfig UIConfig { get; set; }
+        public PlayerConfig PlayerConfig { get; private set; }
+        public LocationConfig LocationConfig { get; private set; }
+        public LevelPlotConfig LevelPlotConfig { get; private set; }
+        public UIConfig UIConfig { get; private set; }
+        public GameConfig GameConfig { get; private set; }
 
         public StaticDataService()
         {
@@ -24,6 +26,7 @@ namespace Infrastructure.Services.StaticDataService
             InitializeLocationConfig();
             InitializeLevelPlotConfig();
             InitializeUIConfig();
+            InitializeGameConfig();
         }
 
         private void InitializePlayerConfig() => 
@@ -34,8 +37,11 @@ namespace Infrastructure.Services.StaticDataService
         
         private void InitializeLevelPlotConfig() =>
             LevelPlotConfig = Resources.Load<LevelPlotConfig>(AssetPaths.LevelPlotConfig);
-        
-        public void InitializeUIConfig() =>
+
+        private void InitializeUIConfig() =>
             UIConfig = Resources.Load<UIConfig>(AssetPaths.UIConfig);
+
+        private void InitializeGameConfig() =>
+            GameConfig = Resources.Load<GameConfig>(AssetPaths.GameConfig);
     }
 }

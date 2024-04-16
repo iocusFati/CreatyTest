@@ -1,9 +1,9 @@
-using System.Threading;
 using Cysharp.Threading.Tasks;
 using Gameplay.Level;
 using Infrastructure.Services.StaticDataService;
 using Infrastructure.StaticData.Level;
 using UniRx;
+using Timer = Gameplay.Level.Plot.Timer;
 
 namespace Infrastructure.States
 {
@@ -12,24 +12,32 @@ namespace Infrastructure.States
         private readonly IKeysHolder _keysHolder;
         private readonly LevelPlot _levelPlot;
         private readonly LevelPlotConfig _levelPlotConfig;
+        private readonly IUIMediator _uiMediator;
 
         private CompositeDisposable _firstKeyPickedDisposable;
         private CompositeDisposable _allKeysCollectedDisposable;
 
-        public GameLoopState(IStaticDataService staticData, IKeysHolder keysHolder, LevelPlot levelPlot)
+        private readonly Timer _timer;
+
+        public GameLoopState(IStaticDataService staticData, IKeysHolder keysHolder, LevelPlot levelPlot, Timer timer, IUIMediator uiMediator)
         {
             _keysHolder = keysHolder;
             _levelPlot = levelPlot;
             _levelPlotConfig = staticData.LevelPlotConfig;
-            
+            _timer = timer;
+            _uiMediator = uiMediator;
+
             _keysHolder.OnKeysSpawned += SubscribeForKeys;
         }
 
-        public void Enter()
+        public async void Enter()
         {
             Initialize();
             
-            _levelPlot.StartPlot(_levelPlotConfig.LevelStartPlot).Forget();
+            await _levelPlot.StartPlot(_levelPlotConfig.LevelStartPlot);
+
+            _timer.ResetTimer();
+            _uiMediator.ShowTimer();
         }
 
         public void Exit()
