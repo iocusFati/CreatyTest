@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelStartPlot:
   - Type: 1
-    DialogueVerse: Hello there!
+    DialogueVerse: Hey there! Ready to explore? Remember, the real adventure begins
+      when you step outside these walls. Let's go!
     CameraState: 0
     ActionType: 0
   - Type: 2
@@ -22,7 +23,12 @@ MonoBehaviour:
     CameraState: 2
     ActionType: 0
   - Type: 1
-    DialogueVerse: Find all keys!
+    DialogueVerse: 'Uh-oh! Looks like we''re locked in tight. '
+    CameraState: 0
+    ActionType: 0
+  - Type: 1
+    DialogueVerse: But fear not! There are keys scattered around. Find them all,
+      and we'll bust through that door in no time. Let the treasure hunt begin!
     CameraState: 0
     ActionType: 0
   - Type: 2
@@ -31,7 +37,8 @@ MonoBehaviour:
     ActionType: 0
   _firstKeyPickedPlot:
   - Type: 1
-    DialogueVerse: You've picked the first key. Only two are left!
+    DialogueVerse: Nice work! One key down, two to go. Keep your eyes peeled and
+      your wits sharp. We're halfway there!
     CameraState: 0
     ActionType: 0
   _allKeysCollectedPlot:
@@ -44,11 +51,12 @@ MonoBehaviour:
     CameraState: 0
     ActionType: 1
   - Type: 1
-    DialogueVerse: The door is finaly open!
+    DialogueVerse: Fantastic! You did it! All the keys are in hand, and the door
+      stands open before us. CREATY, let's embark on this next chapter together!
     CameraState: 0
     ActionType: 0
   - Type: 2
     DialogueVerse: 
     CameraState: 3
     ActionType: 0
-  _dialogueSpeed: 15
+  _dialogueSpeed: 33
