@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31230872f4234c2d9bc25f8c922816cf, type: 3}
+  m_Name: LevelPlotConfig
+  m_EditorClassIdentifier: 
+  _levelStartPlot:
+  - Type: 1
+    DialogueVerse: Hello there!
+    CameraState: 0
+    ActionType: 0
+  - Type: 2
+    DialogueVerse: 
+    CameraState: 2
+    ActionType: 0
+  - Type: 1
+    DialogueVerse: Find all keys!
+    CameraState: 0
+    ActionType: 0
+  - Type: 2
+    DialogueVerse: 
+    CameraState: 3
+    ActionType: 0
+  _firstKeyPickedPlot:
+  - Type: 1
+    DialogueVerse: You've picked the first key. Only two are left!
+    CameraState: 0
+    ActionType: 0
+  _allKeysCollectedPlot:
+  - Type: 2
+    DialogueVerse: 
+    CameraState: 1
+    ActionType: 0
+  - Type: 3
+    DialogueVerse: 
+    CameraState: 0
+    ActionType: 1
+  - Type: 1
+    DialogueVerse: The door is finaly open!
+    CameraState: 0
+    ActionType: 0
+  - Type: 2
+    DialogueVerse: 
+    CameraState: 3
+    ActionType: 0
+  _dialogueSpeed: 15
